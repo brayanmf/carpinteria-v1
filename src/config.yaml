@@ -1,0 +1,37 @@
+site:
+  name: 'Carpintería Metálica José María'
+  site: 'https://CM_JoseMaria.vercel.app'
+  base: '/'
+  trailingSlash: false
+  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+
+# Default SEO metadata
+metadata:
+  title:
+    default: 'Carpintería Metálica José María'
+    template: '%s — Carpintería Metálica José María'
+  description: 'Especialistas en cerrajería y carpintería metálica en Villa María del Triunfo. Servicios de ventanas, puertas, barandas y escaleras metálicas.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: 'Carpintería Metálica José María'
+    type: website
+  twitter:
+    cardType: summary_large_image
+
+i18n:
+  language: es
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: false
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+
+ui:
+  theme: 'system'

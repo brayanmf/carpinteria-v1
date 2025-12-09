@@ -1,0 +1,73 @@
+---
+export interface Props {
+  stats: Array<{
+    number: string;
+    label: string;
+    suffix?: string;
+    icon: string;
+  }>;
+}
+
+const { stats = [] } = Astro.props;
+---
+
+<section class="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {stats.map((stat, index) => (
+        <div 
+          class="transform hover:scale-105 transition-transform duration-300"
+          data-aos="fade-up" 
+          data-aos-delay={(index * 100).toString()}
+        >
+          <div class="flex justify-center mb-4">
+            <i class={`${stat.icon} text-3xl text-blue-200`}></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-bold mb-2 countup" data-count={stat.number}>
+            0{stat.suffix || '+'}
+          </div>
+          <div class="text-lg text-blue-100 font-medium">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Animación de contadores - VERSIÓN CORREGIDA
+  document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.countup');
+    
+    counters.forEach(counter => {
+      const countAttribute = counter.getAttribute('data-count');
+      // VERIFICAR que no sea null
+      if (!countAttribute) return;
+      
+      const target = parseInt(countAttribute);
+      const suffix = counter.textContent?.replace(/[0-9]/g, '') || '+';
+      let count = 0;
+      const duration = 2000;
+      
+      const updateCount = () => {
+        if (count < target) {
+          count += target / (duration / 16);
+          counter.textContent = Math.ceil(count) + suffix;
+          setTimeout(updateCount, 16);
+        } else {
+          counter.textContent = target + suffix;
+        }
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            updateCount();
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      
+      observer.observe(counter);
+    });
+  });
+</script>
