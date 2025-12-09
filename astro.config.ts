@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
+import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
@@ -23,7 +23,9 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 export default defineConfig({
   output: 'server',
-  adapter: vercel(),
+  adapter: node({
+    mode: 'standalone',
+  }),
   integrations: [
     tailwind({
       applyBaseStyles: false,
